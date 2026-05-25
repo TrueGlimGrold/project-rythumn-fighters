@@ -997,7 +997,7 @@
             "id": "fa505c42-b89a-4fe9-b2ec-a0737a776431",
             "actions": [
                 {
-                    "name": "Button1",
+                    "name": "ButtonA",
                     "type": "Button",
                     "id": "b87603cb-b8b1-4719-8a36-95f06dbd553c",
                     "expectedControlType": "",
@@ -1006,7 +1006,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Button2",
+                    "name": "ButtonB",
                     "type": "Button",
                     "id": "8080e781-fb1c-4682-ac5a-90dcdc8d360c",
                     "expectedControlType": "",
@@ -1015,7 +1015,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Button3",
+                    "name": "ButtonC",
                     "type": "Button",
                     "id": "8495d6cf-90bb-42c2-a492-2029c2e3ae70",
                     "expectedControlType": "",
@@ -1024,7 +1024,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Button4",
+                    "name": "ButtonD",
                     "type": "Button",
                     "id": "6a0a9d99-9aea-43ea-ae14-d8cb4ab8bc94",
                     "expectedControlType": "",
@@ -1041,7 +1041,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button1",
+                    "action": "ButtonA",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1052,18 +1052,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button2",
+                    "action": "ButtonB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d3b6b12a-4a28-4f86-9410-ff816af97588",
-                    "path": "",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button3",
+                    "action": "ButtonC",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1074,7 +1074,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Button4",
+                    "action": "ButtonD",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
