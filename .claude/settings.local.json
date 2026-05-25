@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\\\Users\\\\robma\\\\games\\\\project-rythumn-fighters\\\\project-rythumn-fighters\\\\Assets\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\robma\\\\games\\\\project-rythumn-fighters\\\\project-rythumn-fighters\\\\project-rythumn-fighters\\\\Assets\\\\Scripts\")"
+    ]
+  }
+}
