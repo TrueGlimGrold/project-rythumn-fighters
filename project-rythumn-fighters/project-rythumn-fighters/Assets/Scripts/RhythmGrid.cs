@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.Events;
 using System.Collections.Generic;
  
 
@@ -13,9 +14,14 @@ public class RhythmGrid : MonoBehaviour
     public int headerHeight = 40;
     public Vector2 gridOffset = new Vector2(100, 100);
 
+    [Header("Events")]
+    public UnityEvent onAllDotsCompleted;
+
     [Header("Timing")]
-    [Tooltip("Seconds for the line to complete one full left-to-right pass")]
-    public float cycleDuration = 2f;
+    [Tooltip("Beats per minute — controls how fast the scan line moves across the 4-column grid")]
+    public float bpm = 120f;
+
+    private float CycleDuration => 240f / Mathf.Max(bpm, 1f);
 
     [Header("Highlight")]
     [Tooltip("How long a hit cell stays highlighted (seconds)")]
@@ -60,7 +66,7 @@ public class RhythmGrid : MonoBehaviour
 
     void Update()
     {
-        lineProgress = (lineProgress + Time.deltaTime / cycleDuration) % 1f;
+        lineProgress = (lineProgress + Time.deltaTime / CycleDuration) % 1f;
 
         for (int r = 0; r < 4; r++)
             for (int c = 0; c < 4; c++)
@@ -109,7 +115,7 @@ public class RhythmGrid : MonoBehaviour
             Outline(r, new Color(0.5f, 0.5f, 0.65f));
             GUI.Label(r, (c + 1).ToString(), labelStyle);
         }
-
+        bool allCompleted = true;
         // Grid rows A-D
         for (int row = 0; row < 4; row++)
         {
@@ -120,7 +126,7 @@ public class RhythmGrid : MonoBehaviour
             Fill(lbl, new Color(0.18f, 0.18f, 0.28f));
             Outline(lbl, new Color(0.5f, 0.5f, 0.65f));
             GUI.Label(lbl, RowLabels[row], labelStyle);
-
+    
             // Play cells
             for (int col = 0; col < 4; col++)
             {
@@ -137,6 +143,8 @@ public class RhythmGrid : MonoBehaviour
                     Rect dot = new Rect(cell.x + pad, cell.y + pad, cell.width - pad * 2f, cell.height - pad * 2f);
 
                     bool isCompleted = completed.Contains(p);
+                    if(!isCompleted)
+                        allCompleted = false;
                     Texture2D b = buttonTexture;
                     if (hit)
                         b = hitButtonTexture;
@@ -151,6 +159,27 @@ public class RhythmGrid : MonoBehaviour
         // Scanning line (red, 3px wide)
         float lx = ox + labelWidth + lineProgress * 4 * cellSize;
         Fill(new Rect(lx - 1.5f, oy, 3f, headerHeight + 4 * cellSize), new Color(1f, 0.2f, 0.2f, 0.85f));
+    
+        if(allCompleted)
+        {
+            onAllDotsCompleted?.Invoke();
+
+            // reset dots and completed
+            // and set a random number of dots 1 - 4
+            // with only one dot per column
+            dots.Clear();
+            completed.Clear();
+            int numDots = Random.Range(1, 5);
+            List<int> availableCols = new List<int> { 0, 1, 2, 3 };
+            for (int i = 0; i < numDots; i++)
+            {
+                int colIndex = Random.Range(0, availableCols.Count);
+                int col = availableCols[colIndex];
+                availableCols.RemoveAt(colIndex);
+                int row = Random.Range(0, 4);
+                dots.Add(new System.Drawing.Point(row, col));
+            }
+        }
     }
 
     // --- Drawing helpers ---
