@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class ButtonJudge : MonoBehaviour
@@ -9,63 +10,68 @@ public class ButtonJudge : MonoBehaviour
     public AudioClip buttonDSound;
     public AudioClip wrongSound;
 
-    private AudioSource _audioSource;
-    private string _correctButton = "";
+    private AudioSource audioSource;
+    private SimpleComposer.BeatNote BeatNote;
 
-    void Awake()
+
+    private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        SimpleComposer.OnCorrectButton += HandleCorrectButton;
+        SimpleComposer.OnBeatNote += HandleBeatNote;
         PlayerInputHandler.OnA_ButtonPressed += () => CheckButton("A");
         PlayerInputHandler.OnB_ButtonPressed += () => CheckButton("B");
         PlayerInputHandler.OnC_ButtonPressed += () => CheckButton("C");
         PlayerInputHandler.OnD_ButtonPressed += () => CheckButton("D");
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        SimpleComposer.OnCorrectButton -= HandleCorrectButton;
+        SimpleComposer.OnBeatNote -= HandleBeatNote;
         PlayerInputHandler.OnA_ButtonPressed -= () => CheckButton("A");
         PlayerInputHandler.OnB_ButtonPressed -= () => CheckButton("B");
         PlayerInputHandler.OnC_ButtonPressed -= () => CheckButton("C");
         PlayerInputHandler.OnD_ButtonPressed -= () => CheckButton("D");
     }
 
-    void HandleCorrectButton(string button)
+    private void HandleBeatNote(SimpleComposer.BeatNote note)
     {
-        _correctButton = button;
+        BeatNote = note;
     }
 
-    void CheckButton(string pressedButton)
+    private void CheckButton(string pressed)
     {
-        if (pressedButton == _correctButton)
+        if (BeatNote == null) { audioSource.PlayOneShot(wrongSound); return; }
+
+        bool correct = pressed switch
         {
-            PlayButtonSound(pressedButton);
-            Debug.Log($"Correct {pressedButton}");
+            "A" => BeatNote.buttonA,
+            "B" => BeatNote.buttonB,
+            "C" => BeatNote.buttonC,
+            _ => false
+        };
+
+        if (correct)
+        {
+            AudioClip clip = pressed switch
+            {
+                "A" => buttonASound,
+                "B" => buttonBSound,
+                "C" => buttonCSound,
+                _ => null
+            };
+            if (clip) audioSource.PlayOneShot(clip);
+            Debug.Log($"Correct! {pressed}");
         }
         else
         {
-            _audioSource.PlayOneShot(wrongSound);
-            Debug.Log($"WrongPressed!!! {pressedButton}, correct was {_correctButton}");
+            audioSource.PlayOneShot(wrongSound);
+            Debug.Log($"WrongPressed!!! {pressed}, correct was {correct}");
         }
     }
 
-    void PlayButtonSound(string button)
-    {
-        AudioClip clip = button switch
-        {
-            "A" => buttonASound,
-            "B" => buttonBSound,
-            "C" => buttonCSound,
-            "D" => buttonDSound,
-            _ => null
-        };
-
-        if (clip != null)
-            _audioSource.PlayOneShot(clip);
-    }
+   
 }

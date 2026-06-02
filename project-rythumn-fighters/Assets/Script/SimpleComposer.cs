@@ -3,16 +3,22 @@ using UnityEngine;
 
 public class SimpleComposer : MonoBehaviour
 {
+
+    private int currentBar = 1;
+    private int beatCount = 0;
+
     [System.Serializable]
     public class BeatNote
     {
         public int beat;
-        public string button; 
+        public bool buttonA;
+        public bool buttonB;
+        public bool buttonC;
     }
 
     public List<BeatNote> beatNotes = new List<BeatNote>();
 
-    public static event System.Action<string> OnCorrectButton;
+    public static event System.Action<BeatNote> OnBeatNote;
 
     void OnEnable() => Metronome.OnBeat += HandleBeat;
     void OnDisable() => Metronome.OnBeat -= HandleBeat;
@@ -20,9 +26,6 @@ public class SimpleComposer : MonoBehaviour
     void HandleBeat(int beatNumber)
     {
         BeatNote note = beatNotes.Find(n => n.beat == beatNumber);
-        if (note != null)
-            OnCorrectButton?.Invoke(note.button);
+        OnBeatNote?.Invoke(note);
     }
-
-
 }
