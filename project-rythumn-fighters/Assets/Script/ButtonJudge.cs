@@ -1,9 +1,10 @@
-using NUnit.Framework;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
 public class ButtonJudge : MonoBehaviour
 {
-    
+    [SerializeField] NotePattern patternHighHat;
+
     public AudioClip buttonASound;
     public AudioClip buttonBSound;
     public AudioClip buttonCSound;
@@ -11,50 +12,70 @@ public class ButtonJudge : MonoBehaviour
     public AudioClip wrongSound;
 
     private AudioSource audioSource;
-    private SimpleComposer.BeatNote BeatNote;
+
+    private bool correctHighHat;
+    private bool correctA => correctHighHat;
+    private bool correctB;
+    private bool correctC;
+
+
+    private Action onAPressed;
+    private Action onBPressed;
+    private Action onCPressed;
+    private Action onDPressed;
+
 
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+
+          onAPressed = () => CheckButton("A");
+          onBPressed = () => CheckButton("B");
+          onCPressed = () => CheckButton("C");
+          onDPressed = () => CheckButton("D");
     }
 
     private void OnEnable()
     {
-        SimpleComposer.OnBeatNote += HandleBeatNote;
-        PlayerInputHandler.OnA_ButtonPressed += () => CheckButton("A");
-        PlayerInputHandler.OnB_ButtonPressed += () => CheckButton("B");
-        PlayerInputHandler.OnC_ButtonPressed += () => CheckButton("C");
-        PlayerInputHandler.OnD_ButtonPressed += () => CheckButton("D");
+        Metronome.OnMeasure += Play;
+        //SimpleComposer.OnBeatNote += HandleBeatNote;
+        PlayerInputHandler.OnA_ButtonPressed += onAPressed;
+        PlayerInputHandler.OnB_ButtonPressed += onBPressed;
+        PlayerInputHandler.OnC_ButtonPressed += onCPressed;
+        PlayerInputHandler.OnD_ButtonPressed += onDPressed;
     }
 
     private void OnDisable()
     {
-        SimpleComposer.OnBeatNote -= HandleBeatNote;
-        PlayerInputHandler.OnA_ButtonPressed -= () => CheckButton("A");
-        PlayerInputHandler.OnB_ButtonPressed -= () => CheckButton("B");
-        PlayerInputHandler.OnC_ButtonPressed -= () => CheckButton("C");
-        PlayerInputHandler.OnD_ButtonPressed -= () => CheckButton("D");
+        Metronome.OnMeasure -= Play;
+        //SimpleComposer.OnBeatNote -= HandleBeatNote;
+        PlayerInputHandler.OnA_ButtonPressed -= onAPressed;
+        PlayerInputHandler.OnB_ButtonPressed -= onBPressed;
+        PlayerInputHandler.OnC_ButtonPressed -= onCPressed;
+        PlayerInputHandler.OnD_ButtonPressed -= onDPressed;
     }
 
-    private void HandleBeatNote(SimpleComposer.BeatNote note)
-    {
-        BeatNote = note;
-    }
+   
+
+
+
 
     private void CheckButton(string pressed)
     {
-        if (BeatNote == null) { audioSource.PlayOneShot(wrongSound); return; }
+        float currentTime = SoundManager.Instance.TimePositionMs;
+        bool inWindow = currentTime >= Metronome.Instance.activeBeatStartPosition &&
+                        currentTime <= Metronome.Instance.activeBeatEndPosition;  // then its true
 
         bool correct = pressed switch
         {
-            "A" => BeatNote.buttonA,
-            "B" => BeatNote.buttonB,
-            "C" => BeatNote.buttonC,
+            "A" => correctA,
+            "B" => correctB,
+            "C" => correctC,
             _ => false
         };
 
-        if (correct)
+        if (correct && inWindow)
         {
             AudioClip clip = pressed switch
             {
@@ -69,9 +90,29 @@ public class ButtonJudge : MonoBehaviour
         else
         {
             audioSource.PlayOneShot(wrongSound);
-            Debug.Log($"WrongPressed!!! {pressed}, correct was {correct}");
+            Debug.Log($"WrongPressed!!! {pressed}, correct was {correctHighHat}");
         }
     }
 
-   
+    private void Play(int measure)
+    {
+        int index = (measure - 1); // to make measure count from 0 to 3 again
+        correctHighHat = GetPatternValue(patternHighHat, index);
+    }
+
+    private bool GetPatternValue(NotePattern pattern, int index)
+    {
+
+        if (index >= 0 && index < pattern.measure.Length)
+        {
+            return pattern.measure[index];
+        }
+        else
+        {
+            Debug.LogWarning($"Measure {pattern} mesureIndex  {index} and correct = {correctHighHat}");
+            return false;
+        }
+    }
+
 }
+

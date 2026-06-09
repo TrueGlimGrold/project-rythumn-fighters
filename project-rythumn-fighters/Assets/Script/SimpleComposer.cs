@@ -20,8 +20,8 @@ public class SimpleComposer : MonoBehaviour
 
     public static event System.Action<BeatNote> OnBeatNote;
 
-    void OnEnable() => Metronome.OnBeat += HandleBeat;
-    void OnDisable() => Metronome.OnBeat -= HandleBeat;
+    void OnEnable() => Metronome.OnMeasure += HandleBeat;
+    void OnDisable() => Metronome.OnMeasure -= HandleBeat;
 
     void HandleBeat(int beatNumber)
     {
