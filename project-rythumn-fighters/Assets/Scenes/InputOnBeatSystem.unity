@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 53647391}
   - component: {fileID: 53647390}
   m_Layer: 0
-  m_Name: Square (4)
+  m_Name: Measure2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 98345506}
   - component: {fileID: 98345507}
   m_Layer: 0
-  m_Name: Square (9)
+  m_Name: Snare3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,6 +328,8 @@ GameObject:
   m_Component:
   - component: {fileID: 131890244}
   - component: {fileID: 131890243}
+  - component: {fileID: 131890245}
+  - component: {fileID: 131890246}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -351,7 +353,7 @@ MonoBehaviour:
   cardsVisual: {fileID: 226749724}
   starterBearBarLength: 8
   starterBarCompleted: 0
-  Starterbpm: 200
+  Starterbpm: 50
 --- !u!4 &131890244
 Transform:
   m_ObjectHideFlags: 0
@@ -367,6 +369,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &131890245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131890242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ace1e0a60bdf6a4f8348037a4d23885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &131890246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131890242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fbe408272f1ab4aa7ebaa9f248e152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &226749724
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +559,7 @@ GameObject:
   - component: {fileID: 310423653}
   - component: {fileID: 310423654}
   m_Layer: 0
-  m_Name: Square (13)
+  m_Name: Snare4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -624,7 +650,7 @@ GameObject:
   - component: {fileID: 405836143}
   - component: {fileID: 405836144}
   m_Layer: 0
-  m_Name: Square (3)
+  m_Name: Clash1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -715,7 +741,7 @@ GameObject:
   - component: {fileID: 549068619}
   - component: {fileID: 549068620}
   m_Layer: 0
-  m_Name: Square (15)
+  m_Name: Clash4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -806,7 +832,7 @@ GameObject:
   - component: {fileID: 572477006}
   - component: {fileID: 572477007}
   m_Layer: 0
-  m_Name: Square (7)
+  m_Name: Clash2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,7 +923,7 @@ GameObject:
   - component: {fileID: 594260300}
   - component: {fileID: 594260301}
   m_Layer: 0
-  m_Name: Square (2)
+  m_Name: Snare1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1097,7 +1123,7 @@ GameObject:
   - component: {fileID: 880748245}
   - component: {fileID: 880748244}
   m_Layer: 0
-  m_Name: Square (12)
+  m_Name: Measure4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1230,7 @@ GameObject:
   - component: {fileID: 982887375}
   - component: {fileID: 982887376}
   m_Layer: 0
-  m_Name: Square (10)
+  m_Name: Kick3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1891,7 +1917,7 @@ GameObject:
   - component: {fileID: 1423067097}
   - component: {fileID: 1423067096}
   m_Layer: 0
-  m_Name: Square (8)
+  m_Name: Measure3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1998,7 +2024,7 @@ GameObject:
   - component: {fileID: 1613165107}
   - component: {fileID: 1613165108}
   m_Layer: 0
-  m_Name: Square (5)
+  m_Name: Snare2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2089,7 +2115,7 @@ GameObject:
   - component: {fileID: 1646323704}
   - component: {fileID: 1646323705}
   m_Layer: 0
-  m_Name: Square (6)
+  m_Name: Kick2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2180,7 +2206,7 @@ GameObject:
   - component: {fileID: 1744870766}
   - component: {fileID: 1744870767}
   m_Layer: 0
-  m_Name: Square (14)
+  m_Name: Kick4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2928,7 +2954,7 @@ GameObject:
   - component: {fileID: 2061829216}
   - component: {fileID: 2061829217}
   m_Layer: 0
-  m_Name: Square (11)
+  m_Name: Clash3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3174,9 +3200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797643f13e73b1543a8e422cbacd10f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Metronome
-  bpm: 200
+  bpm: 50
   barLength: 4
-  margin: 100
+  margin: 500
 --- !u!4 &2104380911
 Transform:
   m_ObjectHideFlags: 0
@@ -3204,7 +3230,7 @@ GameObject:
   - component: {fileID: 2108526811}
   - component: {fileID: 2108526810}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Measure1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3311,7 +3337,7 @@ GameObject:
   - component: {fileID: 2114429245}
   - component: {fileID: 2114429246}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Kick1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

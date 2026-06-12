@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 341ceb84f507a494293b3e29f65e702e, type: 3}
-  m_Name: HIghhat
+  m_Name: Clash
   m_EditorClassIdentifier: Assembly-CSharp::NotePattern
-  measure: 01010101
+  measure: 0000000000000000
